@@ -50,9 +50,9 @@ class CalculateVacationDays implements ShouldQueue
                 $now = Carbon::now();
                 $year =  $now->year;
 
-               /* $existingEmpVac = VacationRequest::where('user_id',$employee->id)
+               $existingEmpVac = VacationRequest::where('user_id',$employee->id)
                 ->where('year',$this->year);
-                if ($existingEmpVac) {
+             /*   if ($existingEmpVac) {
                     Log::info("Vacation  already exists for {$employee->name}  - {$this->year}");
                     continue;
                 }

@@ -28,8 +28,8 @@ class VacationRequestsTable
 
 
  ->headerActions([
-           Action::make("generate_payroll")
-            ->label("Generate Payroll")
+           Action::make("generate_vacation_days")
+            ->label("Generate Vacation Days for this year")
             ->icon("heroicon-o-cog")
             ->color("success")
             ->schema([
