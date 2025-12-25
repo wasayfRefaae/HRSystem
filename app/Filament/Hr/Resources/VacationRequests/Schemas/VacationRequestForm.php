@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\VacationRequests\Schemas;
+namespace App\Filament\Hr\Resources\VacationRequests\Schemas;
 
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
@@ -18,12 +18,9 @@ use App\Model\App\Models\User;
 use App\Models\User as ModelsUser;
 use App\Models\VacationRequest;
 use Illuminate\Foundation\Auth\User as AuthUser;
-
 class VacationRequestForm
 {
-     protected ?string $lastVacationData = null;
-    // var null|string $lastVacationData;
-    public static function configure(Schema $schema): Schema
+   public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([

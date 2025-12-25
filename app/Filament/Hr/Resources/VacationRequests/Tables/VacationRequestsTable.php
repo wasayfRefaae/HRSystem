@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\VacationRequests\Tables;
+namespace App\Filament\Hr\Resources\VacationRequests\Tables;
+
+
 
 use App\Jobs\CalculateVacationDays;
 use App\Models\Department;
@@ -21,7 +23,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-
 
 class VacationRequestsTable
 {

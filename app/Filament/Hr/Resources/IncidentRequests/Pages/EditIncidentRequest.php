@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\IncidentRequests\Pages;
+namespace App\Filament\Hr\Resources\IncidentRequests\Pages;
 
-use App\Filament\Resources\IncidentRequests\IncidentRequestResource;
+use App\Filament\Hr\Resources\IncidentRequests\IncidentRequestResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 

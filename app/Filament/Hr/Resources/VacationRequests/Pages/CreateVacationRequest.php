@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\VacationRequests\Pages;
+namespace App\Filament\Hr\Resources\VacationRequests\Pages;
 
-use App\Filament\Resources\VacationRequests\VacationRequestResource;
+use App\Filament\Hr\Resources\VacationRequests\VacationRequestResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateVacationRequest extends CreateRecord

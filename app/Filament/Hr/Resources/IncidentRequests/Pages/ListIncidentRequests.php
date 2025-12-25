@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\IncidentRequests\Pages;
+namespace App\Filament\Hr\Resources\IncidentRequests\Pages;
 
-use App\Filament\Resources\IncidentRequests\IncidentRequestResource;
+use App\Filament\Hr\Resources\IncidentRequests\IncidentRequestResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 

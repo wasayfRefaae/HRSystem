@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\IncidentRequests\Tables;
+namespace App\Filament\Hr\Resources\IncidentRequests\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
+
 class IncidentRequestsTable
 {
     public static function configure(Table $table): Table
@@ -17,39 +15,28 @@ class IncidentRequestsTable
         return $table
             ->columns([
                 TextColumn::make('incident.name')
-                    ->searchable()
-                    ->label('الواقعة'),
+                    ->searchable(),
                 TextColumn::make('user.name')
-                      ->searchable()
-                      ->label('اسم الموظف'),
-                    
+                    ->searchable(),
                 TextColumn::make('ministry.name')
-                      ->searchable()
-                      ->label('الوزارة'),
+                    ->searchable(),
                 TextColumn::make('department.name')
-                    ->searchable()
-                    ->label('المديرية'),
+                    ->searchable(),
                 TextColumn::make('position.name')
-                    ->label('المركز الوظيفي')
-                      ->searchable(),
+                    ->searchable(),
                 TextColumn::make('category.name')
-                    ->label('الفئة')
                     ->searchable(),
                 TextColumn::make('hire_date')
                     ->date()
-                ->label('تاريخ المباشرة')
                     ->sortable(),
                 TextColumn::make('salary')
                     ->numeric()
-                    ->label('الراتب')
                     ->sortable(),
                 TextColumn::make('doc_no')
-                    ->searchable()
-                    ->label('رقم القرار'),
+                    ->searchable(),
                 TextColumn::make('doc_date')
                     ->date()
-                    ->sortable()
-                    ->label('تاريخ القرار'),
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -64,8 +51,6 @@ class IncidentRequestsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
-                ViewAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
