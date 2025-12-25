@@ -38,8 +38,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            IncidentRequestRelationManager::class
-            //
+          //  IncidentRequestRelationManager::class
+            
         ];
     }
 
