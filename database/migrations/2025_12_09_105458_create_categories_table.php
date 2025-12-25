@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
                    $table->string('name');
-                $table->decimal('categ_ceil',10,2);
-            $table->decimal('categ_ceil_curr',10,2);
+            
             $table->timestamps();
         });
     }

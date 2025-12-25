@@ -6,6 +6,7 @@ use App\Filament\Resources\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
 use App\Filament\Resources\Categories\Schemas\CategoryForm;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 use App\Filament\Resources\Categories\Tables\CategoriesTable;
 use App\Models\Category;
 use BackedEnum;
@@ -37,6 +38,7 @@ protected static string | UnitEnum | null $navigationGroup = 'Degree & Category 
     public static function getRelations(): array
     {
         return [
+        
             //
         ];
     }

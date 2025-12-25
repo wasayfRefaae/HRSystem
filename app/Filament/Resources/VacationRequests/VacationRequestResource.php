@@ -29,6 +29,20 @@ class VacationRequestResource extends Resource
         return VacationRequestForm::configure($schema);
     }
 
+    /* public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        // If the user has the 'manager' role, filter the vacation requests to only those in their department
+        if ( Department::where('manager_id',Auth::user()->id)->value('manager_id'))  {
+            $managerDepartmentId = Auth::user()->department_id;
+            $employeeIds = User::where('department_id', $managerDepartmentId)->pluck('id');
+            $query->whereIn('user_id', $employeeIds);
+        }
+
+        return $query;
+    }*/
+
     public static function table(Table $table): Table
     {
         return VacationRequestsTable::configure($table);
@@ -46,6 +60,7 @@ class VacationRequestResource extends Resource
         return [
             'index' => ListVacationRequests::route('/'),
             'create' => CreateVacationRequest::route('/create'),
+               
             'edit' => EditVacationRequest::route('/{record}/edit'),
         ];
     }

@@ -28,7 +28,9 @@ class VacationRequestForm
         return $schema
             ->components([
                   Select::make('user_id')
+                  ->label('الموظف')
                  ->label('Colleagues in Your Department')
+                    ->label('الموظف')
                 ->options(function () {
                     $user = Auth::user();
                     return $user->departmentColleagues->pluck('name', 'id');
@@ -62,70 +64,94 @@ class VacationRequestForm
                    
                  
                 Select::make('vacation_id')
+                ->label('نوع الإجازة')  
                     ->relationship('vacation', 'name')
                     ->required()
                     ->searchable()
                     ->preload(),
                 DatePicker::make('request_date')
+                ->label('تاريخ الطلب')
                     ->required()
                   ->default(now()->toDateString())
                // ->disabled()
                   ,
                 TextInput::make('year')
+                ->label('السنة')
                     ->required()
                     ->default('2025'),
                 DatePicker::make('start_date')
+                ->label('تاريخ البداية')
                      ->live()
                     ->required()
                     ->afterStateUpdated(fn($state, Set $set, Get $get)=> 
                         self::calculateDays($set,$get)),
                 DatePicker::make('end_date')
+                ->label('تاريخ النهاية')    
                      ->live()
                     ->required()
                     ->afterStateUpdated(fn($state, Set $set, Get $get)=> 
                         self::calculateDays($set,$get)),
                 TextInput::make('vac_days')
+                ->label(' عدد ايام الإجازة')
                     ->numeric()
                     ->default(null)
                     ->disabled()
                     ->dehydrated(),
                 TextInput::make('vac_months')
+                ->label('عدد شهور الإجازة')
                     ->numeric()
                     ->visible(fn(Get $get) => $get('vacation_id') ===2)
                     ->default(null),
                 TextInput::make('days_per_year')
+                ->label('عدد ايام الإجازة السنوية')
                     ->numeric()
                     ->disabled()
                     ->dehydrated()
+                    //->visible(fn(Get $get) => $get('status') === 'rejected')
                     ->default(null),
                 TextInput::make('used_days')
+                ->label('عدد ايام الإجازة المستخدمة')
                     ->numeric()
                     ->dehydrated()
                  
                     ->default(null),
                 TextInput::make('remain_days')
+                ->label('عدد ايام الإجازة المتبقية')
                     ->numeric()
                     ->dehydrated()
                     ->default(null)
                   //  ->disabled()
                     ,
                 Select::make('status')
+                ->label('حالة الطلب')
                     ->options(['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'])
                     ->default('pending')
                     ->required()
                     ->live()
                     ->disabled(),
-                Textarea::make('reason')
+             
+                    
+
+                    Textarea::make('rejection_reason')
                     ->required()
+                    ->label('سبب الرفض')
                      ->visible(fn(Get $get) => $get('status') === 'rejected')
                     ->columnSpanFull(),
+                    
                 Textarea::make('notes')
+                ->label('ملاحظات')
                     ->default(null)
                     ->columnSpanFull(),
                 TextInput::make('doc_no')
+                ->label('رقم القرار')
+                    
                     ->default(null),
-                DatePicker::make('doc_date'),
+                DatePicker::make('doc_date')
+                ->label('تاريخ القرار')
+                   ,
                 DateTimePicker::make('approved_at')
+                ->label('تاريخ الموافقة')
+                    ->dehydrated()
                 ->hidden(),
                    ]);
     }

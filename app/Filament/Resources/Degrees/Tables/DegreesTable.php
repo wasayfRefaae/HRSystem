@@ -17,8 +17,10 @@ class DegreesTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
+                TextColumn::make(name: 'name')
+                    ->searchable()
+                    ->label('الدرجة العلمية')
+                  ,
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

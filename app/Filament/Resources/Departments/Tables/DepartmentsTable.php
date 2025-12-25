@@ -19,12 +19,15 @@ class DepartmentsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('المديرية'),
                 TextColumn::make('ministry.name')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('الوزارة'),
                 TextColumn::make('manager.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('المدير'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

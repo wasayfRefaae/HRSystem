@@ -12,6 +12,7 @@ class DegreeForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('الدرجة العلمية')
                     ->required(),
             ]);
     }

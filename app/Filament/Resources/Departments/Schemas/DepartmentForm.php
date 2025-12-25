@@ -15,18 +15,22 @@ class DepartmentForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->label('المديرية'),
                 Select::make('ministry_id')
                      ->relationship('ministry', 'name')
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->label('الوزارة'),
                 Textarea::make('description')
                     ->default(null)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->label('الوصف'),
                 Select::make('manager_id')
                     ->relationship('manager', 'name')
-                    ->default(null),
+                    ->default(null)
+                    ->label('المدير'),
             ]);
     }
 }

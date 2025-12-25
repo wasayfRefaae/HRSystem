@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\VacationRequests\Tables;
 
 use App\Jobs\CalculateVacationDays;
+use App\Models\Department;
+use App\Models\User;
 use App\Models\VacationRequest;
-use Filament\Actions\Action as ActionsAction;
+//use Filament\Actions\Action as ActionsAction;
 
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -17,16 +19,29 @@ use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Traits\HasRoles;
+
 
 class VacationRequestsTable
 {
    public static function configure(Table $table): Table
     {
-        return $table
+        return $table 
+->modifyQueryUsing(function (Builder $query) {
+            // If the user has the 'manager' role, filter the vacation requests to only those in their department
+            if (Department::where('manager_id', Auth::user()->id)->value('manager_id')) {
+                $managerDepartmentId = Auth::user()->department_id;
+                $employeeIds = User::where('department_id', $managerDepartmentId)->pluck('id');
+                $query->whereIn('user_id', $employeeIds);
+            }
+
+            return $query;
+        })
 
 
+        
+       
  ->headerActions([
            Action::make("generate_vacation_days")
             ->label("Generate Vacation Days for this year")
@@ -60,48 +75,70 @@ class VacationRequestsTable
 
 
 
+ 
+
+
         
             ->columns([
                 TextColumn::make('user.name')
+                ->label('الموظف')
                      ->searchable()
                     ->sortable(),
                 TextColumn::make('vacation.name')
+                ->label('نوع الإجازة')
                     ->searchable(),
                 TextColumn::make('request_date')
+                ->label('تاريخ الطلب')
                     ->searchable(),
-                TextColumn::make('year'),
+                TextColumn::make('year')
+                ->label('السنة'),
                 TextColumn::make('start_date')
+                ->label('تاريخ البداية')
                     ->date()
                     ->sortable(),
                 TextColumn::make('end_date')
+                ->label('تاريخ النهاية')
                     ->date()
                     ->sortable(),
                 TextColumn::make('vac_days')
+                ->label(' عدد ايام الإجازة')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('vac_months')
+                ->label('عدد شهور الإجازة')
+                
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('days_per_year')
+                    
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('used_days')
+                ->label('عدد الأيام المستخدمة')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('remain_days')
+                ->label('عدد الأيام المتبقية')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
+                ->label('حالة الطلب')
                     ->badge(),
                 TextColumn::make('doc_no')
+                ->label('رقم القرار')
                     ->searchable(),
                 TextColumn::make('doc_date')
+                ->label('تاريخ القرار')
                     ->date()
                     ->sortable(),
                 TextColumn::make('approved_by')
+                
+                  ->label('تمت الموافقة من قبل')
+                
                   
                     ->sortable(),
                 TextColumn::make('approved_at')
+                ->label('تاريخ الموافقة')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -113,7 +150,27 @@ class VacationRequestsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-           
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
             ->recordActions([
                 EditAction::make(),
                 Action::make('approve')
@@ -130,6 +187,7 @@ class VacationRequestsTable
                         'remain_days' => (int) ($record->remain_days - (float)$record->vac_days),
 
                     ]);
+                    
 
                     Notification::make()
                     ->success()
@@ -154,6 +212,9 @@ class VacationRequestsTable
                         'rejection_reason' => $data['rejection_reason']
                     ]);
 
+
+                    
+
                     Notification::make()
                     ->success()
                     ->title('Leave Rejected')
@@ -165,5 +226,6 @@ class VacationRequestsTable
                     DeleteBulkAction::make(),
                 ]),
             ]);
+            
     }
 }

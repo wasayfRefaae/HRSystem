@@ -12,6 +12,7 @@ class IncidentForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('الواقعة')
                     ->required(),
             ]);
     }

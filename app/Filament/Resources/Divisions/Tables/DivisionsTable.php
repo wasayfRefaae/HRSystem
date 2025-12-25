@@ -17,9 +17,11 @@ class DivisionsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('القسم'),
                 TextColumn::make('department.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('المديرية'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Notifications\Notifiable;
 class VacationRequest extends Model
 {
+        use Notifiable;
      protected $guarded = [
         'id','created_at','updated_at',
     ];
@@ -32,4 +33,15 @@ public function approver()
 {
     return $this->belongsTo(User::class);
 }
+
+ public function notifyStatusChange(string $status, ?string $notes = null): void
+    {
+        $this->user->notify(new \App\Notifications\VacationRequestStatusNotification(
+            $this,
+            $status,
+            $notes
+        ));
+    }
+
+
 }

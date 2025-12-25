@@ -12,14 +12,10 @@ class CategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('الفئة')
                     ->required()
                     ->default(''),
-                TextInput::make('categ_ceil')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('categ_ceil_curr')
-                    ->required()
-                    ->numeric(),
+                
             ]);
     }
 }

@@ -12,6 +12,7 @@ class VacationForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('نوع الإجازة')
                     ->required(),
             ]);
     }

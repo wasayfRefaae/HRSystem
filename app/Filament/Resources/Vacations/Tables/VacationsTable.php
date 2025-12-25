@@ -22,6 +22,7 @@ class VacationsTable
 
             ->columns([
                 TextColumn::make('name')
+                ->label('نوع الإجازة'  )
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

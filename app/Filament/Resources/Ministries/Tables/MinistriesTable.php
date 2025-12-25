@@ -16,7 +16,8 @@ class MinistriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('الوزارة'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

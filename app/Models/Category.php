@@ -12,11 +12,9 @@ class Category extends Model
     ];
 
           protected $casts = [
-        'categ_ceil' => 'decimal:2',
-         'categ_ceil_curr' => 'decimal:2',
-    ];
+ 
 
-
+          ];
 
     public function employees(): HasMany
     {

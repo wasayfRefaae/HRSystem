@@ -17,31 +17,39 @@ class IncidentRequestsTable
         return $table
             ->columns([
                 TextColumn::make('incident.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('الواقعة'),
                 TextColumn::make('user.name')
-                      ->searchable(),
+                      ->searchable()
+                      ->label('اسم الموظف'),
                     
                 TextColumn::make('ministry.name')
-                      ->searchable(),
+                      ->searchable()
+                      ->label('الوزارة'),
                 TextColumn::make('department.name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('المديرية'),
                 TextColumn::make('position.name')
-                    
+                    ->label('المركز الوظيفي')
                       ->searchable(),
                 TextColumn::make('category.name')
-                    
+                    ->label('الفئة')
                     ->searchable(),
                 TextColumn::make('hire_date')
                     ->date()
+                ->label('تاريخ المباشرة')
                     ->sortable(),
                 TextColumn::make('salary')
                     ->numeric()
+                    ->label('الراتب')
                     ->sortable(),
                 TextColumn::make('doc_no')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('رقم القرار'),
                 TextColumn::make('doc_date')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('تاريخ القرار'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

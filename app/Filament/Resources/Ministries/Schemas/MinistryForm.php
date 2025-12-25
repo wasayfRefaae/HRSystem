@@ -13,8 +13,10 @@ class MinistryForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('الوزارة')
                     ->required(),
                 Textarea::make('description')
+                ->label('الوصف')
                     ->required()
                     ->columnSpanFull(),
             ]);

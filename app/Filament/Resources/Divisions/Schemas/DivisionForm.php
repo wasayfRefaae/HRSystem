@@ -17,10 +17,12 @@ class DivisionForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('القسم')
                     ->required(),
                 Select::make('department_id')
                     ->relationship('department', 'name')
-                    ->required(),
+                    ->required()
+                    ->label('المديرية'),
             ]);
     }
 }

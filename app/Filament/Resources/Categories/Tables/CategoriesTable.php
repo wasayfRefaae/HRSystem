@@ -17,13 +17,9 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                ->label('الفئة')    
                     ->searchable(),
-                TextColumn::make('categ_ceil')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('categ_ceil_curr')
-                    ->numeric()
-                    ->sortable(),
+             
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
