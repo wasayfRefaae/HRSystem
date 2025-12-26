@@ -51,7 +51,7 @@ class VacationRequestsTable
        
  ->headerActions([
            Action::make("generate_vacation_days")
-           ->visible(fn () => Department::where('manager_id', Auth::user()->id)->value('manager_id'))
+           //->visible(fn () => Department::where('manager_id', Auth::user()->id)->value('manager_id'))
             ->label("Generate Vacation Days for this year")
             ->icon("heroicon-o-cog")
             ->color("success")
