@@ -25,7 +25,7 @@ class VacationRequestForm
         return $schema
             ->components([
                   Select::make('user_id')
-                  ->label('الموظف')
+                 
                  ->label('Colleagues in Your Department')
                     ->label('الموظف')
                 ->options(function () {
@@ -37,51 +37,37 @@ class VacationRequestForm
                 ->required()
                 ->preload()
                 
-             /*    ->afterStateUpdated(function ($state,Set $set, Get $get) {
-                        if ($state) {
-                            // Get last vacation request for the selected user
-                            $lastRequest = VacationRequest::where('user_id', $state)
-                                ->latest()
-                                ->first();
-                            
-                            if ($lastRequest) {
-                               ([
-                                    'days_per_year' => $lastRequest->days_per_year,
-                                    'used_days' => $lastRequest->used_days,
-                                    'remain_days' => $lastRequest->remain_days,
-                                    
-                                ]);
-                            } else {
-                                $set('last_vacation_info', null);
-                            }
-                        }
-                    })*/
-                        ->afterStateUpdated(fn($state, Set $set, Get $get)=> 
+           
+                 ->afterStateUpdated(fn($state, Set $set, Get $get)=> 
                         self::getLastRecord($set,$get)),
-                   
+                          
                  
                 Select::make('vacation_id')
                 ->label('نوع الإجازة')  
                     ->relationship('vacation', 'name')
                     ->required()
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                     ,
                 DatePicker::make('request_date')
                 ->label('تاريخ الطلب')
                     ->required()
                   ->default(now()->toDateString())
                // ->disabled()
+              
                   ,
                 TextInput::make('year')
                 ->label('السنة')
                     ->required()
-                    ->default('2025'),
+                    ->default('2025')
+               ,
                 DatePicker::make('start_date')
                 ->label('تاريخ البداية')
                      ->live()
                     ->required()
                     ->afterStateUpdated(fn($state, Set $set, Get $get)=> 
-                        self::calculateDays($set,$get)),
+                        self::calculateDays($set,$get))
+                          ,
                 DatePicker::make('end_date')
                 ->label('تاريخ النهاية')    
                      ->live()

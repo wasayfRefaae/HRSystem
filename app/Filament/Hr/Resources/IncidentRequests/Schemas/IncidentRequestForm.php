@@ -15,31 +15,42 @@ class IncidentRequestForm
             ->components([
                 Select::make('incident_id')
                     ->relationship('incident', 'name')
+                    ->label('الواقعة')
                     ->required(),
                 Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->required(),
+                    ->required()
+                    ->label('الموظف'),
                 Select::make('ministry_id')
                     ->relationship('ministry', 'name')
-                    ->required(),
+                    ->required()
+                    ->label('الوزارة')
+                        ,
                 Select::make('department_id')
                     ->relationship('department', 'name')
-                    ->required(),
+                    ->required()
+                    ->label('المديرية'),
                 Select::make('position_id')
                     ->relationship('position', 'name')
-                    ->required(),
+                    ->required()
+                    ->label('الوظيفة'),
                 Select::make('category_id')
                     ->relationship('category', 'name')
-                    ->required(),
+                    ->required()
+                   ->label('الفئة'),
                 DatePicker::make('hire_date')
-                    ->required(),
+                    ->required()
+                    ->label('تاريخ المباشرة'),
                 TextInput::make('salary')
                     ->numeric()
-                    ->default(null),
+                    ->default(null)
+                    ->label('الراتب'),
                 TextInput::make('doc_no')
-                    ->required(),
+                    ->required()
+                    ->label('رقم القرار'),
                 DatePicker::make('doc_date')
-                    ->required(),
+                    ->required()
+                    ->label('تاريخ القرار'),
             ]);
     }
 }

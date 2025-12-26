@@ -15,6 +15,7 @@ class WorksTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                ->label('النوع الوظيفي')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

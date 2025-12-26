@@ -30,12 +30,18 @@ class VacationRequestsTable
     {
         return $table 
 ->modifyQueryUsing(function (Builder $query) {
-            // If the user has the 'manager' role, filter the vacation requests to only those in their department
+
             if (Department::where('manager_id', Auth::user()->id)->value('manager_id')) {
                 $managerDepartmentId = Auth::user()->department_id;
                 $employeeIds = User::where('department_id', $managerDepartmentId)->pluck('id');
-                $query->whereIn('user_id', $employeeIds);
+                $query->whereIn('user_id', $employeeIds)
+             ;
+                
+         
             }
+         else
+                    $query->where('user_id', Auth::user()->id);
+
 
             return $query;
         })
@@ -45,6 +51,7 @@ class VacationRequestsTable
        
  ->headerActions([
            Action::make("generate_vacation_days")
+           ->visible(fn () => Department::where('manager_id', Auth::user()->id)->value('manager_id'))
             ->label("Generate Vacation Days for this year")
             ->icon("heroicon-o-cog")
             ->color("success")
@@ -175,10 +182,12 @@ class VacationRequestsTable
             ->recordActions([
                 EditAction::make(),
                 Action::make('approve')
+                
                 ->icon('heroicon-o-check-circle')
                 ->color('success')
                 ->requiresConfirmation()
                 ->visible(fn(VacationRequest $record) => $record->status === 'pending')
+                ->visible(fn () => Department::where('manager_id', Auth::user()->id)->value('manager_id'))
                 ->action(function(VacationRequest $record){
                     $record->update([
                         'status'=> 'approved',
@@ -200,6 +209,7 @@ class VacationRequestsTable
                 ->color('danger')
                 ->requiresConfirmation()
                 ->visible(fn(VacationRequest $record) => $record->status === 'pending')
+                 ->visible(fn () => Department::where('manager_id', Auth::user()->id)->value('manager_id'))
                 ->schema([
                     Textarea::make('rejection_reason')
                     ->required()

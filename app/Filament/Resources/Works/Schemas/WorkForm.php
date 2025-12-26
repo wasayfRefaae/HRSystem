@@ -12,6 +12,7 @@ class WorkForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('النوع الوظيفي')
                     ->required(),
             ]);
     }

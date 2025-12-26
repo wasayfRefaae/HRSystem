@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
        
             ->PasswordReset()
             ->brandLogo(asset('images/logo.svg'))
+              ->favicon(asset('images/logo.svg'))
             ->colors([
                 'primary' => Color::Indigo,
             ])

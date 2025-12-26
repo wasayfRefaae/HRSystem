@@ -18,7 +18,6 @@ use UnitEnum;
 class DivisionResource extends Resource
 {
     protected static ?string $model = Division::class;
-
       protected static string|BackedEnum|null $navigationIcon = Heroicon::Briefcase;
 
     protected static string | UnitEnum | null $navigationGroup = 'Ministry Management';

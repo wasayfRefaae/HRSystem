@@ -12,6 +12,7 @@ class PositionForm
         return $schema
             ->components([
                 TextInput::make('name')
+                ->label('المسمى الوظيفي')   
                     ->required(),
             ]);
     }

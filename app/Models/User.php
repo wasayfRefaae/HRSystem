@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -105,9 +106,13 @@ class User extends Authenticatable
 }
 public function departmentColleagues():HasMany
 {
-    return $this->hasMany(User::class, 'department_id', 'department_id')
-                ->where('id', '!=', $this->id);
+    return $this->hasMany(User::class, 'department_id', 'department_id');
+               // ->where('id', '!=', $this->id);
 }
+ public function isManager(): bool
+    {
+         return Department::where('manager_id', Auth::user()->id)->value('manager_id');
+    }
 
  protected static function boot()
     {

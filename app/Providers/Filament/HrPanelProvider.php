@@ -26,10 +26,13 @@ class HrPanelProvider extends PanelProvider
         return $panel
             ->id('hr')
             ->path('hr')
-            ->login()
-               ->PasswordReset()
+               ->login()
+       
+            ->PasswordReset()
+            ->brandLogo(asset('images/logo.svg'))
+              ->favicon(asset('images/logo.svg'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Green,
             ])
             ->discoverResources(in: app_path('Filament/Hr/Resources'), for: 'App\Filament\Hr\Resources')
             ->discoverPages(in: app_path('Filament/Hr/Pages'), for: 'App\Filament\Hr\Pages')
@@ -56,6 +59,6 @@ class HrPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 FilamentShieldPlugin::make()
-            ]);;
+            ]);
     }
 }

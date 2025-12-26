@@ -17,6 +17,8 @@ class PositionsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                 ->label('المسمى الوظيفي')   
+                 
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

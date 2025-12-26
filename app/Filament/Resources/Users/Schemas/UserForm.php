@@ -115,9 +115,11 @@ class UserForm
                     ->default(null),
               
                 Select::make('category_id')
+                ->required()
                     ->relationship('category', 'name')
                     ->default(null),
                 Select::make('degree_id')
+                ->required()
                     ->relationship('degree', 'name')
                     ->default(null),
                 Select::make('department_id')
@@ -133,15 +135,15 @@ class UserForm
                     ->searchable()
                     ->preload(),
                 Select::make('position_id')
+                ->required()
                     ->relationship('position', 'name')
                     ->default(null),
                 Select::make('work_id')
+                ->required()
                     ->relationship('work', 'name')
                     ->default(null),
                 
-                TextInput::make('vacation_days')
-                    ->numeric()
-                    ->default(null),
+                
                 DatePicker::make('hire_date'),
                 TextInput::make('appoint_no')
                     ->default(null),
@@ -150,12 +152,7 @@ class UserForm
                     ->default(null),
                 TextInput::make('shamCash_no')
                     ->default(null),
-                TextInput::make('days_he_fiveYears')
-                    ->numeric()
-                    ->default(null),
-                TextInput::make('days_not_fiveYears')
-                    ->numeric()
-                    ->default(null),
+             
                 ToggleButtons::make('employment_type')
                     ->options([
             'full-time' => 'Full time',
