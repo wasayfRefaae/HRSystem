@@ -8,6 +8,7 @@ use App\Jobs\CalculateVacationDays;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\VacationRequest;
+use App\Notifications\VacationRequestStatusNotification;
 //use Filament\Actions\Action as ActionsAction;
 
 use Filament\Actions\Action;
@@ -23,6 +24,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class VacationRequestsTable
 {
@@ -191,19 +193,24 @@ class VacationRequestsTable
                 ->action(function(VacationRequest $record){
                     $record->update([
                         'status'=> 'approved',
-                        'approved_by' => Auth::user()->id,
+                        'approved_by' => Auth::user()?->id,
                         'approved_at'=> now(),
                         'used_days' =>(int) ($record->used_days + $record->vac_days) ,
                         'remain_days' => (int) ($record->remain_days - (float)$record->vac_days),
 
                     ]);
                     
-
-                    Notification::make()
+                 $record->user->notify(new \App\Notifications\VacationApprovedNotification($record));
+                  /*  Notification::make()
                     ->success()
                     ->title('Leave approved')
-                    ->send();
-                }),
+                    ->send();*/
+                    
+               
+                    
+                })
+                  ->visible(fn(VacationRequest $record) => $record->status === 'pending')
+                  ,
                 Action::make('reject')
                 ->icon('heroicon-o-x-circle')
                 ->color('danger')
@@ -223,15 +230,16 @@ class VacationRequestsTable
                         'rejection_reason' => $data['rejection_reason']
                     ]);
 
-
-                    
-
+                    $record->user->notify(new \App\Notifications\VacationRejectedNotification($record));
+                       
                     Notification::make()
                     ->success()
-                    ->title('Leave Rejected')
+                    ->title('Vacation Rejected')
                     ->send();
                 })
+                ->visible(fn(VacationRequest $record) => $record->status === 'pending')
             ])
+           
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

@@ -34,14 +34,7 @@ public function approver()
     return $this->belongsTo(User::class);
 }
 
- public function notifyStatusChange(string $status, ?string $notes = null): void
-    {
-        $this->user->notify(new \App\Notifications\VacationRequestStatusNotification(
-            $this,
-            $status,
-            $notes
-        ));
-    }
+
 
 
 }
