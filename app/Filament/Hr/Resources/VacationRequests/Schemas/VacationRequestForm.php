@@ -111,7 +111,7 @@ class VacationRequestForm
                     ->default('pending')
                     ->required()
                     ->live()
-                
+                    ->disabled()
                    ->afterStateUpdated(function ($state, Set $set) {
                         if ($state !== 'rejected') {
                             $set('rejection_reason', null);

@@ -201,10 +201,10 @@ class VacationRequestsTable
                     ]);
                     
                  $record->user->notify(new \App\Notifications\VacationApprovedNotification($record));
-                  /*  Notification::make()
+                  Notification::make()
                     ->success()
-                    ->title('Leave approved')
-                    ->send();*/
+                    ->title('vacation approved  and message has been sent to the user email ')
+                    ->send();
                     
                
                     
@@ -234,7 +234,7 @@ class VacationRequestsTable
                        
                     Notification::make()
                     ->success()
-                    ->title('Vacation Rejected')
+                    ->title('vacation rejected  and message has been sent to the user email')
                     ->send();
                 })
                 ->visible(fn(VacationRequest $record) => $record->status === 'pending')
